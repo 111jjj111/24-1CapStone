@@ -1,0 +1,125 @@
+<template>
+
+  <div id="app">
+    <div class="container">
+      <nav class="navbar navbar-dark bg-success fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Sumokhwa BusTracking</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-success" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-success" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="map-container mb-3">
+        <div id="map" ref="map"></div>
+      </div>
+      <div class="buttons">
+        <button @click="centerMap('changwon')" class="btn btn-outline-success" id="changwon">창원</button>
+        <button @click="centerMap('ulsan')" class="btn btn-outline-success mx-0.5" id="ulsan">울산</button>
+        <button @click="centerMap('masan')" class="btn btn-outline-success" id="masan">마산</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { onMounted, ref } from 'vue';
+
+export default {
+  setup() {
+    const map = ref(null);
+    const locations = {
+      changwon: new naver.maps.LatLng(35.2271, 128.6811),
+      ulsan: new naver.maps.LatLng(35.5384, 129.3114),
+      masan: new naver.maps.LatLng(35.1991, 128.5698)
+    };
+
+    onMounted(() => {
+      map.value = new naver.maps.Map(document.getElementById('map'), {
+        center: new naver.maps.LatLng(35.2271, 128.6811),
+        zoom: 10
+      });
+    });
+
+    const centerMap = (location) => {
+      map.value.setCenter(locations[location]);
+      map.value.setZoom(13);
+    };
+
+    return {
+      centerMap
+    };
+  } 
+};
+</script>
+
+<style>
+#app {
+  text-align: center;
+}
+
+.container {
+  margin-top: 2rem;
+}
+
+.map-container {
+  margin-bottom: 1rem;
+}
+
+#map {
+  height: 80vh;
+  width: 100%;
+}
+
+.buttons {
+}
+
+.buttons button {
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+
+}
+
+#changwon {
+  margin-right: 2rem;
+}
+
+
+#masan {
+  margin-left: 2rem;
+}
+</style>
