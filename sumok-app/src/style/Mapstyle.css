@@ -1,0 +1,35 @@
+#app {
+    text-align: center;
+  }
+  
+  .container {
+    margin-top: 2rem;
+  }
+  
+  .map-container {
+    margin-bottom: 1rem;
+  }
+  
+  #map {
+    height: 80vh;
+    width: 100%;
+  }
+  
+  .buttons {
+  }
+  
+  .buttons button {
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+  
+  }
+  
+  #changwon {
+    margin-right: 2rem;
+  }
+  
+  
+  #masan {
+    margin-left: 2rem;
+  }
