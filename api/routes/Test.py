@@ -4,8 +4,8 @@ from starlette import status
 from fastapi import FastAPI, Form,File,UploadFile
 from pydantic import BaseModel
 from fastapi import Request
-# import mysql.connector
-# from mysql.connector import Error
+import mysql.connector
+from mysql.connector import Error
 
 
 router = APIRouter(
@@ -21,6 +21,23 @@ class Pos(BaseModel):
     Latitude: str
     Longitude: str
 
+#06/01 start
+db_config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': '12341234',
+    'database': 'capstone'
+}
+
+def get_db_connection():
+    try:
+        connection = mysql.connector.connect(**db_config)
+        return connection
+    except Error as e:
+        print(f"Error: {e}")
+        return None
+#06/01 end
+
 
 # Read
 
@@ -32,23 +49,32 @@ def test():
 #region 05/21
 @router.post("/finite")
 def receive_data(pos: Pos):
-    try: #여기 원래 주석이였음
-        Latitude = pos.Latitude
-        Longitude = pos.Longitude
-        print(Latitude)
-        print(Longitude)
-        # conn = mysql.connector.connect(**db_config)
-        # cursor = conn.cursor()
-        # query = "INSERT INTO TableName (column1, column2) VALUES (%s, %s)"
-        # cursor.execute(query,(Latitude, Longitude))
-        # conn.commit()
-
-        # cursor.close()
-        # conn.close()
-        return {"status" : "success"}   
+    #06/05 start
+    connection = get_db_connection()
+    if connection is None:
+        raise HTTPException(status_code=500, detail="Database connection failed")
+    
+    try:
+        cursor = connection.cursor()
+        query = "INSERT INTO Bus_info (latitude, longitude) VALUES (%s, %s)"
+        cursor.execute(query, (pos.Latitude, pos.Longitude))
+        connection.commit()
+        cursor.close()
+        connection.close()
+        return {"status": "success"}
     except Exception as e:
-        print(e)
         raise HTTPException(status_code=422, detail=str(e))
+    #06/05 end
+
+    # try: #여기 원래 주석이였음
+    #     #Latitude = pos.Latitude 06/05
+    #     #Longitude = pos.Longitude
+    #     #print(Latitude)
+    #     #print(Longitude) 06/05
+    #     return {"status" : "success"}   
+    # except Exception as e:
+    #     print(e)
+    #     raise HTTPException(status_code=422, detail=str(e))
 #endregion 05/21
 
 @router.post("/echo")
