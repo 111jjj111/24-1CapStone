@@ -5,7 +5,7 @@
 
 <script>
 import MapTemplate from './components/MapTemplate.vue';
-import MapLogic from './logic/Maplogic.js';
+import MapLogic from './logic/tmplogic.js';
 
 export default {
   components: {

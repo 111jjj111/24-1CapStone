@@ -30,18 +30,14 @@ export default {
         createMarker('공업탑로터리', 35.53270, 129.3056);
         createMarker('신복로터리', 35.55081, 129.2631);
       }
-      // if (location === 'changwon') {
-      //   createMarker('학성공원', 35.55685, 129.3383);
-      //   createMarker('태화로터리', 35.54657, 129.3073);
-      //   createMarker('공업탑로터리', 35.53270, 129.3056);
-      //   createMarker('신복로터리', 35.55081, 129.2631);
-      // }
-      // if (location === 'masan') {
-      //   createMarker('학성공원', 35.55685, 129.3383);
-      //   createMarker('태화로터리', 35.54657, 129.3073);
-      //   createMarker('공업탑로터리', 35.53270, 129.3056);
-      //   createMarker('신복로터리', 35.55081, 129.2631);
-      // }
+      if (location === 'changwon') {
+        createMarker('창원시외버스터미널', 35.23528, 128.6388);
+        createMarker('남산시외버스터미널', 35.20200, 128.6975);
+      }
+      if (location === 'masan') {
+        createMarker('마산역 프리마호텔', 35.23475, 128.5782);
+        createMarker('장유고속버스환승정류장', 35.20130, 128.8135 );
+      }
     };
 
     const createMarker = (title, lat, lng) => {

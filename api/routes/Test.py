@@ -21,23 +21,6 @@ class Pos(BaseModel):
     Latitude: str
     Longitude: str
 
-#06/01 start
-db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '12341234',
-    'database': 'capstone'
-}
-
-def get_db_connection():
-    try:
-        connection = mysql.connector.connect(**db_config)
-        return connection
-    except Error as e:
-        print(f"Error: {e}")
-        return None
-#06/01 end
-
 
 # Read
 
