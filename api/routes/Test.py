@@ -81,5 +81,27 @@ def receive_data(pos: Pos):
 def echo(pos: Pos):
     return {"Latitude": pos.Latitude, "Longitude": pos.Longitude}
 
+@router.get("/max_num/")
+def get_max_num():
+    connection = get_db_connection()
+    if connection is None:
+        raise HTTPException(status_code=500, detail="Database connection failed")
+    try:
+        # MySQL 연결
+        cursor = connection.cursor()
 
+        # 쿼리 실행
+        cursor.execute("SELECT latitude, longitude FROM Bus_info WHERE num = (SELECT MAX(num) FROM Bus_info)")
+        result = cursor.fetchone()
+        
+        cursor.close()
+        connection.close()
+
+        if result is None:
+            raise HTTPException(status_code=404, detail="No items found")
+
+        latitude, longitude = result
+        return {"latitude": latitude, "longitude": longitude}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
