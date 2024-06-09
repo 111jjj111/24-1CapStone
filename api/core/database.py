@@ -5,7 +5,7 @@ import sqlalchemy
 # Define the MariaDB engine using MariaDB Connector/Python
 
 #engine = sqlalchemy.create_engine("mariadb+mariadbconnector://app_user:Password123!@127.0.0.1:3306/company")
-engine = sqlalchemy.create_engine("mariadb+mariadbconnector://root:""@127.0.0.1:3306/company")
+engine = sqlalchemy.create_engine("mariadb+mariadbconnector://root:""@113.198.229.225:3306/company")
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
